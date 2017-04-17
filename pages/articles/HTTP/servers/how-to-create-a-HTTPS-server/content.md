@@ -9,10 +9,11 @@ We need to start out with a word about SSL certificates.  Speaking generally, th
 
 To generate a self-signed certificate, run the following in your shell:
 
-    openssl genrsa -out key.pem
-    openssl req -new -key key.pem -out csr.pem
-    openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
-    rm csr.pem
+    According to http://stackoverflow.com/questions/34835859/node-js-https-example-error-unknown-ssl-protocol-error-in-connection-to-localh the key and cert creation is wrong (remove this line) :D
+
+    openssl genrsa -out client-key.pem 2048
+    openssl req -new -key client-key.pem -out client.csr
+    openssl x509 -req -in client.csr -signkey client-key.pem -out client-cert.pem
 
 This should leave you with two files, `cert.pem` (the certificate) and `key.pem` (the private key). This is all you need for a SSL connection. So now you set up a quick hello world example (the biggest difference between https and [http](/how-do-i-create-a-http-server) is the `options` parameter):
 
